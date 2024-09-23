@@ -16,8 +16,16 @@ input {
 }
 
 .tier-row {
+  min-width: 20vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border: 1px solid black;
   margin: 1vh;
+}
+
+.tier-name {
+  margin: 1rem;
 }
 
 .add-tier-btn {
