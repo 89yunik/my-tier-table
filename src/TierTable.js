@@ -6,7 +6,7 @@ const TierTable = () => {
 
   const addRow = (rowNum) => {
     const newRows = [...rows]
-    newRows.splice(rowNum, 0, { tierName: "tier" })
+    newRows.splice(rowNum + 1, 0, { tierName: "tier" })
     setRows(newRows)
   }
 
