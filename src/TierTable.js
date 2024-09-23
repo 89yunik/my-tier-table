@@ -2,20 +2,24 @@ import { useState } from "react"
 import AutosizeInput from "react-input-autosize"
 
 const TierTable = () => {
-  const [rows, setRows] = useState([{ tierName: "tier" }])
+  const rowKey = "TierName"
+  const initialTierName = "Tier"
+
+  const [rows, setRows] = useState([{ [rowKey]: initialTierName }])
 
   const addRow = (rowNum) => {
     const newRows = [...rows]
-    newRows.splice(rowNum + 1, 0, { tierName: "tier" })
+    newRows.splice(rowNum + 1, 0, { [rowKey]: initialTierName })
     setRows(newRows)
+    console.log(newRows)
   }
 
   const TierTableRow = (props) => {
-    const [tierName, setTierName] = useState(props.rowInfo["tierName"])
+    const [tierName, setTierName] = useState(props.rowInfo[rowKey])
 
     const changeTierName = (e) => {
       setTierName(e.target.value)
-      rows[props.index]["tierName"] = e.target.value
+      rows[props.index][rowKey] = e.target.value
     }
     return (
       <div className="tier-row">
