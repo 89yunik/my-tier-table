@@ -1,3 +1,7 @@
+input {
+  border: none;
+}
+
 .App {
   text-align: center;
 }
@@ -9,4 +13,23 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+}
+
+.tier-row {
+  min-width: 20vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  margin: 1vh;
+}
+
+.tier-name {
+  margin: 1rem;
+}
+
+.add-tier-btn {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
 }
