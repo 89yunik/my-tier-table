@@ -1,14 +1,11 @@
 :root {
   --image-height: 15vh;
+
 }
 
 input {
   border: none;
 }
-
-/* #app {
-  text-align: center;
-} */
 
 #app-header {
   display: flex;
@@ -19,8 +16,9 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
+  border-top: 1px solid black;
+  margin: 0.2rem;
 }
 
 .tier-table-row {
@@ -30,7 +28,8 @@ input {
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
-  margin: 0.5vw;
+  border-top: 0;
+  /* margin: 0.5vw; */
 }
 
 .tier-name {
@@ -44,7 +43,7 @@ input {
 }
 
 #gallery {
-  margin: 0.5vw;
+  margin: 0.2rem;
 }
 
 .gallery-image {
