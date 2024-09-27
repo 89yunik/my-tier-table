@@ -1,6 +1,6 @@
 :root {
   --image-height: 15vh;
-
+  --element-margin: 0.2rem;
 }
 
 input {
@@ -18,7 +18,7 @@ input {
   align-items: center;
   font-size: calc(10px + 2vmin);
   border-top: 1px solid black;
-  margin: 0.2rem;
+  margin: var(--element-margin);
 }
 
 .tier-table-row {
@@ -29,7 +29,6 @@ input {
   align-items: center;
   border: 1px solid black;
   border-top: 0;
-  /* margin: 0.5vw; */
 }
 
 .tier-name {
@@ -43,7 +42,7 @@ input {
 }
 
 #gallery {
-  margin: 0.2rem;
+  margin: var(--element-margin);
 }
 
 .gallery-image {
