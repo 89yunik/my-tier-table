@@ -1,27 +1,36 @@
+:root {
+  --image-height: 15vh;
+}
+
 input {
   border: none;
 }
 
-.App {
+/* #app {
   text-align: center;
+} */
+
+#app-header {
+  display: flex;
 }
 
-.App-header {
+#tier-table {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
 }
 
-.tier-row {
-  min-width: 20vw;
+.tier-table-row {
+  width: 49.5vw;
+  height: var(--image-height);
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
-  margin: 1vh;
+  margin: 0.5vw;
 }
 
 .tier-name {
@@ -32,4 +41,12 @@ input {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.3);
   font-weight: bold;
+}
+
+#gallery {
+  margin: 0.5vw;
+}
+
+.gallery-image {
+  height: var(--image-height);
 }
