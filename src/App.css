@@ -42,7 +42,7 @@ input {
   text-align: left;
 }
 
-.add-tier-btn {
+.tier-row-crud-btn {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.3);
   font-weight: bold;
