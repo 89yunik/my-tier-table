@@ -7,9 +7,10 @@ const TierTable = () => {
 
   const [rows, setRows] = useState([{ [rowKey]: initialTierName, images: new Set() }])
 
-  const addRow = (rowNum) => {
+  const modifyRow = (rowNum, isAdd = true) => {
     const newRows = [...rows]
-    newRows.splice(rowNum + 1, 0, { [rowKey]: initialTierName, images: new Set() })
+    if (isAdd) newRows.splice(rowNum + 1, 0, { [rowKey]: initialTierName, images: new Set() })
+    else if (rows.length > 1) newRows.splice(rowNum, 1)
     setRows(newRows)
   }
 
@@ -57,8 +58,11 @@ const TierTable = () => {
             <img key={url} className="gallery-image" src={url} onDragStart={() => handleDragStart(url)}></img>
           ))}
         </div>
-        <button className="add-tier-btn btn btn-link" onClick={() => addRow(props.index)}>
+        <button className="tier-row-crud-btn btn btn-link" onClick={() => modifyRow(props.index)}>
           +
+        </button>
+        <button className="tier-row-crud-btn btn btn-link" onClick={() => modifyRow(props.index, false)} disabled={rows.length < 2}>
+          -
         </button>
       </div>
     )
