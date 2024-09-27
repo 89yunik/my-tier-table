@@ -11,7 +11,6 @@ const TierTable = () => {
     const newRows = [...rows]
     newRows.splice(rowNum + 1, 0, { [rowKey]: initialTierName })
     setRows(newRows)
-    console.log(newRows)
   }
 
   const TierTableRow = (props) => {
