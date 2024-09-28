@@ -1,12 +1,61 @@
-.App {
+:root {
+  --image-height: 14vh;
+  --element-margin: 0.2rem;
+}
+
+input {
+  border: none;
+}
+
+#app-title {
   text-align: center;
 }
 
-.App-header {
+#app-body {
+  display: flex;
+}
+
+#tier-table {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
   font-size: calc(10px + 2vmin);
+  border-top: 1px solid black;
+  margin: var(--element-margin);
+}
+
+.tier-table-row {
+  width: 49.5vw;
+  min-height: var(--image-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  border-top: 0;
+}
+
+.tier-name {
+  margin: 1rem;
+  min-width: 3vw;
+}
+
+.tier-images {
+  flex-grow: 1;
+  min-height: var(--image-height);
+  text-align: left;
+}
+
+.tier-row-crud-btn {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+}
+
+#gallery {
+  margin: var(--element-margin);
+}
+
+.gallery-image {
+  height: var(--image-height);
 }
