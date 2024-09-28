@@ -2,6 +2,7 @@
 
 ## Link
 
+https://my-tier-table.vercel.app/
 
 ## Skills
 
