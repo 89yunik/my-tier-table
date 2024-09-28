@@ -58,8 +58,10 @@ const Gallery = () => {
   }, [pageNum])
   return (
     <div id="gallery">
-      <input type="text" placeholder="Search for anime..." value={searchQuery} onChange={handleSearch} onKeyDown={handleSearch} />
-      <Pagination pageNum={pageNum} hasNextPage={hasNextPage} onPageChange={handlePageChange} />
+      <div id="gallery-control">
+        <input type="text" placeholder="Search for image..." value={searchQuery} onChange={handleSearch} onKeyDown={handleSearch} />
+        <Pagination pageNum={pageNum} hasNextPage={hasNextPage} onPageChange={handlePageChange} />
+      </div>
       {images.map((imageInfo) => (
         <img className="gallery-image" key={imageInfo.id} src={imageInfo.coverImage.large} title={imageInfo.title.romaji} alt={imageInfo.title.english}></img>
       ))}
