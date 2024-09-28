@@ -7,7 +7,11 @@ input {
   border: none;
 }
 
-#app-header {
+#app-title {
+  text-align: center;
+}
+
+#app-body {
   display: flex;
 }
 
