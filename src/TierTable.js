@@ -1,5 +1,5 @@
 import { useState } from "react"
-import AutosizeInput from "react-input-autosize"
+import AutosizeInput from "react-18-input-autosize"
 
 const TierTable = () => {
   const rowKey = "TierName"
