@@ -7,13 +7,6 @@ const TierTable = () => {
 
   const [rows, setRows] = useState([{ [rowKey]: initialTierName, images: new Set() }])
 
-  const modifyRow = (rowNum, isAdd = true) => {
-    const newRows = [...rows]
-    if (isAdd) newRows.splice(rowNum + 1, 0, { [rowKey]: initialTierName, images: new Set() })
-    else if (rows.length > 1) newRows.splice(rowNum, 1)
-    setRows(newRows)
-  }
-
   const TierTableRow = (props) => {
     const [tierName, setTierName] = useState(props.rowInfo[rowKey])
     const [images, setImages] = useState(props.rowInfo.images)
@@ -22,6 +15,13 @@ const TierTable = () => {
     const changeTierName = (e) => {
       setTierName(e.target.value)
       rows[props.index][rowKey] = e.target.value
+    }
+
+    const modifyRow = (rowNum, isAdd = true) => {
+      const newRows = [...rows]
+      if (isAdd) newRows.splice(rowNum + 1, 0, { [rowKey]: initialTierName, images: new Set() })
+      else if (rows.length > 1) newRows.splice(rowNum, 1)
+      setRows(newRows)
     }
 
     const handleDragStart = (url) => {
@@ -55,7 +55,7 @@ const TierTable = () => {
         <AutosizeInput className="tier-name" type="text" value={tierName} onChange={changeTierName} />
         <div className="tier-images" onDrop={(e) => handleImageDrag(e)} onDragOver={handleDragOver} onDragLeave={(e) => handleImageDrag(e)}>
           {Array.from(images).map((url) => (
-            <img key={url} className="gallery-image" src={url} onDragStart={() => handleDragStart(url)}></img>
+            <img key={url} className="gallery-image" src={url} onDragStart={() => handleDragStart(url)} alt=""></img>
           ))}
         </div>
         <button className="tier-row-crud-btn btn btn-link" onClick={() => modifyRow(props.index)}>
