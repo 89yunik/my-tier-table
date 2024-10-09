@@ -52,7 +52,7 @@ const TierTable = () => {
 
     return (
       <div className="tier-table-row">
-        <AutosizeInput className="tier-name" type="text" value={tierName} onChange={changeTierName} />
+        <AutosizeInput inputClassName="tier-name" type="text" value={tierName} onChange={changeTierName} />
         <div className="tier-images" onDrop={(e) => handleImageDrag(e)} onDragOver={handleDragOver} onDragLeave={(e) => handleImageDrag(e)}>
           {Array.from(images).map((url) => (
             <img key={url} className="gallery-image" src={url} onDragStart={() => handleDragStart(url)} alt=""></img>
