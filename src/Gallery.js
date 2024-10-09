@@ -61,6 +61,18 @@ const Gallery = () => {
       <div id="gallery-control">
         <input type="text" placeholder="Search for image..." value={searchQuery} onChange={handleSearch} onKeyDown={handleSearch} />
         <Pagination pageNum={pageNum} hasNextPage={hasNextPage} onPageChange={handlePageChange} />
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              Animation
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Movie
+            </a>
+          </li>
+        </ul>
       </div>
       {images.map((imageInfo) => (
         <img className="gallery-image" key={imageInfo.id} src={imageInfo.coverImage.large} title={imageInfo.title.romaji} alt={imageInfo.title.english}></img>
