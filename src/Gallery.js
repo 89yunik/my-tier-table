@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react"
-import Pagination from "./Pagenation"
+import Pagination from "./Pagination"
 
 const Gallery = () => {
+  const [activeTab, setActiveTab] = useState(0)
   const [images, setImages] = useState([])
   const [pageNum, setPageNum] = useState(1)
   const [hasNextPage, setHasNextPage] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
 
-  const animeQuery = `
+  const categories = [
+    {
+      name: "Animation",
+      fetchUrl: "https://graphql.anilist.co",
+      query: `
       {
         Page(page: ${pageNum}) {
           media(type: ANIME, format: TV, status: FINISHED, sort: POPULARITY_DESC, ${searchQuery ? `search: "${searchQuery}"` : ""}) {
@@ -25,12 +30,23 @@ const Gallery = () => {
           }
         }
       }
-    `
+    `,
+    },
+    {
+      name: "Movie",
+      fetchUrl: `http://www.omdbapi.com/?s=${searchQuery}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`,
+    },
+  ]
+
+  const handleCategoryChange = (clickedIndex) => {
+    setActiveTab(clickedIndex)
+    setPageNum(1)
+  }
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       setPageNum(1)
-      fetchData(animeQuery)
+      fetchData()
     } else setSearchQuery(e.target.value)
   }
 
@@ -40,39 +56,59 @@ const Gallery = () => {
     }
   }
 
-  const fetchData = async (query) => {
-    const response = await fetch("https://graphql.anilist.co", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query }),
-    })
-    const { data } = await response.json()
-    setHasNextPage(data.Page.pageInfo.hasNextPage)
-    setImages(data.Page.media)
+  const fetchData = async () => {
+    const url = categories[activeTab].fetchUrl
+    const query = categories[activeTab].query
+
+    switch (activeTab) {
+      case 0:
+        const animationRes = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query }),
+        })
+        const animationData = await animationRes.json()
+        setHasNextPage(animationData.data.Page.pageInfo.hasNextPage)
+        setImages(animationData.data.Page.media)
+        break
+      case 1:
+        const movieRes = await fetch(url)
+        const movieData = await movieRes.json()
+        const formattedMovieData =
+          "Search" in movieData
+            ? movieData.Search.map((movie_info) => ({
+                id: movie_info.imdbID,
+                coverImage: { large: movie_info.Poster },
+                title: { romaji: undefined, english: movie_info.Title },
+              }))
+            : []
+        setHasNextPage(false)
+        setImages(formattedMovieData)
+        break
+      default:
+        break
+    }
   }
 
   useEffect(() => {
-    fetchData(animeQuery)
-  }, [pageNum])
+    fetchData()
+  }, [pageNum, activeTab])
   return (
     <div id="gallery">
       <div id="gallery-control">
-        <input type="text" placeholder="Search for image..." value={searchQuery} onChange={handleSearch} onKeyDown={handleSearch} />
-        <Pagination pageNum={pageNum} hasNextPage={hasNextPage} onPageChange={handlePageChange} />
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              Animation
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Movie
-            </a>
-          </li>
+        <ul id="gallery-nav" className="nav nav-pills">
+          {categories.map((categoryInfo, index) => (
+            <li key={index} className={`nav-item nav-link ${activeTab === index ? "active" : ""}`} onClick={() => handleCategoryChange(index)}>
+              {categoryInfo.name}
+            </li>
+          ))}
         </ul>
+        <div id="gallery-search-pagination">
+          <input type="text" placeholder="Search for image..." value={searchQuery} onChange={handleSearch} onKeyDown={handleSearch} />
+          <Pagination pageNum={pageNum} hasNextPage={hasNextPage} onPageChange={handlePageChange} />
+        </div>
       </div>
       {images.map((imageInfo) => (
         <img className="gallery-image" key={imageInfo.id} src={imageInfo.coverImage.large} title={imageInfo.title.romaji} alt={imageInfo.title.english}></img>
