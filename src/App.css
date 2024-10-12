@@ -57,8 +57,13 @@ input {
   margin: var(--element-margin);
 }
 
-#gallery-control {
+#gallery-control,
+#gallery-search-pagination {
   display: flex;
+}
+
+#gallery-nav {
+  color: grey;
 }
 
 .gallery-image {
