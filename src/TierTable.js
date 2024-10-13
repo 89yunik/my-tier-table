@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react"
 import AutosizeInput from "react-18-input-autosize"
 
-const TierTable = () => {
+const TierTable = ({ activeTab }) => {
   const rowKey = "TierName"
   const initialTierName = "Tier"
 
   const [rows, setRows] = useState([{ [rowKey]: initialTierName, images: [] }])
 
   useEffect(() => {
-    const savedRows = localStorage.getItem("rows")
+    // localStorage.clear()
+    const savedRows = localStorage.getItem(activeTab)
     if (savedRows) setRows(JSON.parse(savedRows))
-  }, [])
+    else setRows([{ [rowKey]: initialTierName, images: [] }])
+  }, [activeTab])
 
   const TierTableRow = (props) => {
     const [tierName, setTierName] = useState(props.rowInfo[rowKey])
@@ -20,7 +22,7 @@ const TierTable = () => {
     const changeTierName = (e) => {
       setTierName(e.target.value)
       rows[props.index][rowKey] = e.target.value
-      localStorage.setItem("rows", JSON.stringify(rows))
+      localStorage.setItem(activeTab, JSON.stringify(rows))
     }
 
     const modifyRow = (rowNum, isAdd = true) => {
@@ -28,7 +30,7 @@ const TierTable = () => {
       if (isAdd) newRows.splice(rowNum + 1, 0, { [rowKey]: initialTierName, images: [] })
       else if (rows.length > 1) newRows.splice(rowNum, 1)
       setRows(newRows)
-      localStorage.setItem("rows", JSON.stringify(newRows))
+      localStorage.setItem(activeTab, JSON.stringify(newRows))
     }
 
     const handleDragStart = (url) => {
@@ -52,7 +54,7 @@ const TierTable = () => {
       const newRows = [...rows]
       newRows[props.index].images = newImages
       setRows(newRows)
-      localStorage.setItem("rows", JSON.stringify(newRows))
+      localStorage.setItem(activeTab, JSON.stringify(newRows))
     }
 
     const handleDragOver = (e) => {

@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react"
 import Pagination from "./Pagination"
 
-const Gallery = () => {
-  const [activeTab, setActiveTab] = useState(0)
+const Gallery = ({ activeTab, setActiveTab }) => {
+  // const [activeTab, setActiveTab] = useState(0)
   const [images, setImages] = useState([])
   const [pageNum, setPageNum] = useState(1)
   const [hasNextPage, setHasNextPage] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
 
-  const categories = [
-    {
-      name: "Animation",
+  const categories = {
+    Animation: {
       fetchUrl: "https://graphql.anilist.co",
       query: `
       {
@@ -32,14 +31,13 @@ const Gallery = () => {
       }
     `,
     },
-    {
-      name: "Movie",
+    Movie: {
       fetchUrl: `http://www.omdbapi.com/?s=${searchQuery}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`,
     },
-  ]
+  }
 
-  const handleCategoryChange = (clickedIndex) => {
-    setActiveTab(clickedIndex)
+  const handleCategoryChange = (clickedTab) => {
+    setActiveTab(clickedTab)
     setPageNum(1)
   }
 
@@ -61,7 +59,7 @@ const Gallery = () => {
     const query = categories[activeTab].query
 
     switch (activeTab) {
-      case 0:
+      case "Animation":
         const animationRes = await fetch(url, {
           method: "POST",
           headers: {
@@ -73,7 +71,7 @@ const Gallery = () => {
         setHasNextPage(animationData.data.Page.pageInfo.hasNextPage)
         setImages(animationData.data.Page.media)
         break
-      case 1:
+      case "Movie":
         const movieRes = await fetch(url)
         const movieData = await movieRes.json()
         const formattedMovieData =
@@ -99,9 +97,9 @@ const Gallery = () => {
     <div id="gallery">
       <div id="gallery-control">
         <ul id="gallery-nav" className="nav nav-pills">
-          {categories.map((categoryInfo, index) => (
-            <li key={index} className={`nav-item nav-link ${activeTab === index ? "active" : ""}`} onClick={() => handleCategoryChange(index)}>
-              {categoryInfo.name}
+          {Object.keys(categories).map((categoryName, index) => (
+            <li key={index} className={`nav-item nav-link ${activeTab === categoryName ? "active" : ""}`} onClick={() => handleCategoryChange(categoryName)}>
+              {categoryName}
             </li>
           ))}
         </ul>
