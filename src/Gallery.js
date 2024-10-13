@@ -32,7 +32,8 @@ const Gallery = ({ activeTab, setActiveTab }) => {
     `,
     },
     Movie: {
-      fetchUrl: `https://www.omdbapi.com/?s=${searchQuery}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`,
+      // fetchUrl: `https://www.omdbapi.com/?s=${searchQuery}&apikey=${process.env.REACT_APP_OMDB_API_KEY}`,
+      fetchUrl: `https://www.omdbapi.com/?s=${searchQuery}&apikey=${process.env.OMDB_API_KEY}`,
     },
   }
 
