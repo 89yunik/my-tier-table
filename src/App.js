@@ -2,14 +2,16 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import TierTable from "./TierTable"
 import Gallery from "./Gallery"
+import { useState } from "react"
 
 function App() {
+  const [activeTab, setActiveTab] = useState("Animation")
+
   return (
     <div id="app" onDragOver={(e) => e.preventDefault()}>
-      {/* <h1 id="app-title">My Tier Table</h1> */}
       <div id="app-body">
-        <TierTable />
-        <Gallery />
+        <TierTable activeTab={activeTab} />
+        <Gallery activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
     </div>
   )

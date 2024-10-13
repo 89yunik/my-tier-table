@@ -38,6 +38,7 @@ input {
 .tier-name {
   margin: 1rem;
   min-width: 3vw;
+  font-weight: bold;
 }
 
 .tier-images {
@@ -56,8 +57,13 @@ input {
   margin: var(--element-margin);
 }
 
-#gallery-control {
+#gallery-control,
+#gallery-search-pagination {
   display: flex;
+}
+
+#gallery-nav {
+  color: grey;
 }
 
 .gallery-image {
