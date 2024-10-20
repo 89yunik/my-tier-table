@@ -17,7 +17,7 @@ const TierTable = ({ activeTab }) => {
   const TierTableRow = (props) => {
     const [tierName, setTierName] = useState(props.rowInfo[rowKey])
     const [images, setImages] = useState(props.rowInfo.images)
-    const [draggedUrl, setDraggedUrl] = useState(null)
+    const [imageUrlToDelete, setImageUrlToDelete] = useState(null)
 
     const changeTierName = (e) => {
       setTierName(e.target.value)
@@ -34,15 +34,15 @@ const TierTable = ({ activeTab }) => {
     }
 
     const handleDragStart = (url) => {
-      setDraggedUrl(url)
+      setImageUrlToDelete(url)
     }
 
     const handleImageDrag = (e) => {
       e.preventDefault()
       const uniqueNewImages = new Set(images)
-      if (draggedUrl) {
-        uniqueNewImages.delete(draggedUrl)
-        setDraggedUrl(null)
+      if (imageUrlToDelete) {
+        uniqueNewImages.delete(imageUrlToDelete)
+        setImageUrlToDelete(null)
       } else {
         const urlToAdd = e.dataTransfer.getData("text/uri-list")
         uniqueNewImages.add(urlToAdd)
